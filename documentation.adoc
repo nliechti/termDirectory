@@ -1,0 +1,47 @@
+= Termdirectory
+
+== Systemanalyse
+
+Die Applikation soll für die interne Koordination des 
+
+== Programmentwurf
+
+== Implementation
+
+== Dokumentation
+
+Die Dokumentation zu den Funktionen, kann direkt im code geschriben werden, da Elixir eine funktion zur Generierung von Dokumentation anbietet.
+Weiter kann dort sogar mittels des Features Doctest gleich auch noch example code als Test ausgeführt werden.
+Dies garantiert dann auch gleich die Korrektheit des code examples und erhöht die Test coverage.
+
+=== Deployment
+
+Das Deployment der Applikation geschieht mit Docker und Docker-Compose.
+Um das Program starten zu können, sowohl https://docs.docker.com/install/[Docker] als auch https://docs.docker.com/compose/install/[Docker-Compose] installiert werden.
+Um das Program und die Datenbank zu starten, kann einfach ein Befehl im Ordner deployments ausgeführt werden.
+``docker-compose up -d``
+
+== Reflexion
+
+=== Elixir / Erlang
+
+Das Ziel dieser Aufgabe, war es für mich, das Funktionale Programmieren anzuschauen und kennen zu lernen.
+Die Funktionale Entwicklung in Elixir unterscheidet sich hauptsächlich vom Objekt orientierten, indem es keine Objekte mit State zulässt.
+Dies Bedeutet, alles was man als Programmierer an Daten in der Hand hat, sind Immutable. Daher entstehen keinerlei Nebeneffekte
+und das Programm kann im Normalfall sehr einfach Parallelisiert werden und ist daher sehr Performant auf multicore Maschinen.
+
+Die grösste Challange bei diesem Projekt, war das komplette umdenken von Objektorientiert auf funktional. Ich habe eigentlich meine gesamte bisherige Laufbahn als Entwickler nur
+Objektorientiert gearbeitet. Daher fiel mir der umstieg und vor allem das Umdenken recht schwierig. Der Tatsache und der Grund, warum alles Immutable ist, hat sich mir recht schnell erschlossen.
+Ich bin aber trotzdem immer wieder, vor allem bei den kleinen Übungen im Buch in die Falsche richtung gelaufen und musste mir immer wieder überlegen wie ich das jetzt funktional lösen könnte.
+
+=== API Design
+
+Während der Arbeit mit an der API habe ich sehr viel über das desingen von REST Api's gelernt. Das wichtigste, dass ich gelernt habe, ist wohl, dass es keine genaue Spezifikation für eine Rest Api gibt.
+Das meiste ist interpratationssache und die Meinungen von Entwicklern gehen weit auseinander wie eine Api designt sein sollte.
+
+=== Phoenix
+
+Phoenix hilft einem mit Generatoren und vorgegebener Projektstruktur dabei, die Applikation recht schon zu strukturieren und die verschiedenen Schichten zu trennen.
+Ob die vorgegebene Struktur richtig ist, lässt sich auch hier nicht abschliessend sagen. Ich finde die Trennung in Contexte recht gut, aber nicht immer ganz einfach.
+
+
