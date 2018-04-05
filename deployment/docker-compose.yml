@@ -23,4 +23,4 @@ services:
           - postgres
         environment:
           - POSTGRESQL_PASSWORD:postgres
-          - POSTGRESQL_PASSWORD:postgres
+          - POSTGRESQL_HOST:postgres
