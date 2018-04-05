@@ -11,7 +11,7 @@ defmodule TermDirectoryWeb.TeacherController do
     render(conn, "index.json", teachers: teachers)
   end
 
-  def create(conn, %{"teacher" => teacher_params}) do
+  def create(conn, teacher_params) do
     with {:ok, %Teacher{} = teacher} <- User.create_teacher(teacher_params) do
       conn
       |> put_status(:created)
@@ -25,7 +25,7 @@ defmodule TermDirectoryWeb.TeacherController do
     render(conn, "show.json", teacher: teacher)
   end
 
-  def update(conn, %{"id" => id, "teacher" => teacher_params}) do
+  def update(conn, teacher_params = %{"id" => id}) do
     teacher = User.get_teacher!(id)
 
     with {:ok, %Teacher{} = teacher} <- User.update_teacher(teacher, teacher_params) do
