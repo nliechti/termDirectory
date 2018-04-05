@@ -13,11 +13,11 @@ defmodule TermDirectoryWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TermDirectoryWeb do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
-  end
+#  scope "/", TermDirectoryWeb do
+#    pipe_through :browser # Use the default browser stack
+#
+#    get "/", PageController, :index
+#  end
   
   scope "/api/v1", TermDirectoryWeb do
     pipe_through :api
