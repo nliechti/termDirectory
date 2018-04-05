@@ -1,0 +1,26 @@
+version: "3"
+services:
+    postgres:
+        image: postgres:10-alpine
+        container_name: "termdir_postgres"
+        restart: always
+        volumes:
+          - ./data/db:/var/lib/postgresql/data
+        environment:
+          - POSTGRES_PASSWORD=postgres
+        ports:
+          - 5432:5432
+
+    termdirectory:
+        restart: always
+        image: termdirectory:latest
+        container_name: "termdir_app"
+        ports:
+          - 4000:4000
+        links:
+          - postgres
+        depends_on:
+          - postgres
+        environment:
+          - POSTGRESQL_PASSWORD:postgres
+          - POSTGRESQL_PASSWORD:postgres
