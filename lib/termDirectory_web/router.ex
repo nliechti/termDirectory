@@ -18,9 +18,9 @@ defmodule TermDirectoryWeb.Router do
 
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", TermDirectoryWeb do
-  #   pipe_through :api
-  # end
+  
+  scope "/api/v1", TermDirectoryWeb do
+    pipe_through :api
+    get "/teachers", TeacherController, :index
+  end
 end
