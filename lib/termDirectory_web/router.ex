@@ -22,5 +22,6 @@ defmodule TermDirectoryWeb.Router do
   scope "/api/v1", TermDirectoryWeb do
     pipe_through :api
     resources "/teachers", TeacherController
+    resources "/modules", ModuleController
   end
 end
