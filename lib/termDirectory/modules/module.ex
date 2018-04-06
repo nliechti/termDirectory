@@ -4,9 +4,10 @@ defmodule TermDirectory.Modules.Module do
 
 
   schema "modules" do
-    field :responsible_teacher_id, :integer
+    many_to_many :module_workers, TermDirectory.User.Teacher, join_through: "module_worker"
     field :shortName, :string
     field :subject, :string
+    belongs_to :responsible_teacher, TermDirectory.User.Teacher
 
     timestamps()
   end
@@ -14,7 +15,9 @@ defmodule TermDirectory.Modules.Module do
   @doc false
   def changeset(module, attrs) do
     module
-    |> cast(attrs, [:subject, :shortName, :responsible_teacher_id])
-    |> validate_required([:subject, :shortName, :responsible_teacher_id])
+    |> cast(attrs, [:subject, :shortName])
+    |> validate_required([:subject, :shortName])
+    |> cast_assoc(:responsible_teacher)
+    |> cast_assoc(:module_workers)
   end
 end

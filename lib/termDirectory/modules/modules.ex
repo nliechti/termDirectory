@@ -7,6 +7,7 @@ defmodule TermDirectory.Modules do
   alias TermDirectory.Repo
 
   alias TermDirectory.Modules.Module
+  alias TermDirectory.Modules.ModulePreloader
 
   @doc """
   Returns the list of modules.
@@ -19,6 +20,7 @@ defmodule TermDirectory.Modules do
   """
   def list_modules do
     Repo.all(Module)
+    |> Repo.preload(:responsible_teacher)
   end
 
   @doc """
@@ -51,6 +53,7 @@ defmodule TermDirectory.Modules do
   """
   def create_module(attrs \\ %{}) do
     %Module{}
+    |> preload_module(attrs)
     |> Module.changeset(attrs)
     |> Repo.insert()
   end
@@ -69,6 +72,7 @@ defmodule TermDirectory.Modules do
   """
   def update_module(%Module{} = module, attrs) do
     module
+    |> Repo.preload(:responsible_teacher)
     |> Module.changeset(attrs)
     |> Repo.update()
   end
@@ -114,7 +118,8 @@ defmodule TermDirectory.Modules do
     fuzzySearchString = "%#{searchString}%"
     query = from module in Module,
                  where: ilike(module.subject, ^fuzzySearchString),
-                 or_where: ilike(module.shortName, ^fuzzySearchString)
+                 or_where: ilike(module.shortName, ^fuzzySearchString),
+                 preload: :responsible_teacher
 
     Repo.all(query)
   end

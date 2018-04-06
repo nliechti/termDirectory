@@ -41,7 +41,20 @@ Das meiste ist interpratationssache und die Meinungen von Entwicklern gehen weit
 
 === Phoenix
 
+Phoenix ist ein Framework, dass in Elixir geschrieben ist. Ist eigentlich ein full Stack Framework, dass auf funktionen vieler Komponenten aufbaut.
+Den Frontend Teil des Frameworkes nahmens Plug, habe bis auf den Router nicht wirklich verwendet. Für die Datenbank anbindung wird Ecto verwendet.
+Ecto ist ein unabhängiger DB Abstraktionslayer, der mir am meisten Mühe bereitete.
+Für die Buisinesslogik wird einfach Elixir in einer bestimmt vorgegebenen Struktur verwendet.
+
 Phoenix hilft einem mit Generatoren und vorgegebener Projektstruktur dabei, die Applikation recht schon zu strukturieren und die verschiedenen Schichten zu trennen.
 Ob die vorgegebene Struktur richtig ist, lässt sich auch hier nicht abschliessend sagen. Ich finde die Trennung in Contexte recht gut, aber nicht immer ganz einfach.
+
+==== Version 1.3
+
+Im Juli 2017 erschien die Version 1.3 des Frameworkes, das viele grundlegende Mechaniken veränderte. Dieser umstand bereitete mir viele Schwierigkeiten,
+da viel Dokumentation von dritten und Beispiele im Internet immer noch auf den alten Strukturen beruhen.
+
+=== Probleme
+Was mir am meisten Probleme bereitet hatte, was die 
 
 

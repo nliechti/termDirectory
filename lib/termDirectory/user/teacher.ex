@@ -6,6 +6,8 @@ defmodule TermDirectory.User.Teacher do
   schema "teachers" do
     field :firstName, :string
     field :lastName,  :string
+    many_to_many :module_worker, TermDirectory.Modules.Module, join_through: "module_worker"
+#    has_many :modulesInCharge, TermDirectory.Modules.Module
 
     timestamps()
   end
