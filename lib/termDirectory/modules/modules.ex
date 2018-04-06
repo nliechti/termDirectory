@@ -101,4 +101,20 @@ defmodule TermDirectory.Modules do
   def change_module(%Module{} = module) do
     Module.changeset(module, %{})
   end
+
+  @doc """
+  Searches for a module containing the searchString
+  
+  ## Examples
+
+      iex> searchModule("Subject")
+      [%Module{}, ...]
+  """
+  def searchModule(searchString \\ "") do
+    query = from module in Module,
+                 where: ilike(module.subject, ^searchString),
+                 or_where: ilike(module.shortName, ^searchString)
+
+    Repo.all(query)
+  end
 end
