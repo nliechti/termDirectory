@@ -111,9 +111,10 @@ defmodule TermDirectory.Modules do
       [%Module{}, ...]
   """
   def searchModule(searchString \\ "") do
+    fuzzySearchString = "%#{searchString}%"
     query = from module in Module,
-                 where: ilike(module.subject, ^searchString),
-                 or_where: ilike(module.shortName, ^searchString)
+                 where: ilike(module.subject, ^fuzzySearchString),
+                 or_where: ilike(module.shortName, ^fuzzySearchString)
 
     Repo.all(query)
   end
