@@ -4,11 +4,12 @@ defmodule TermDirectoryWeb.ModuleControllerTest do
   alias TermDirectory.Modules
   alias TermDirectory.Modules.Module
 
-  @create_attrs %{responsible_teacher: 42, shortName: "some shortName", subject: "some subject"}
+  @create_attrs %{module_workers: [module_worker_id: 1],responsible_teacher: 42, shortName: "some shortName", subject: "some subject"}
   @update_attrs %{responsible_teacher: 43, shortName: "some updated shortName", subject: "some updated subject"}
   @invalid_attrs %{responsible_teacher: nil, shortName: nil, subject: nil}
 
   def fixture(:module) do
+    {:ok, }
     {:ok, module} = Modules.create_module(@create_attrs)
     module
   end

@@ -53,7 +53,8 @@ defmodule TermDirectory.Modules do
   """
   def create_module(attrs \\ %{}) do
     %Module{}
-    |> preload_module(attrs)
+    #    |> TermDirectory.Modules.ModulePreloader.preload_module(attrs)
+    |> Repo.preload(:responsible_teacher)
     |> Module.changeset(attrs)
     |> Repo.insert()
   end

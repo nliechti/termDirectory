@@ -14,10 +14,7 @@ defmodule TermDirectoryWeb.ModuleView do
     %{id: module.id,
       subject: module.subject,
       shortName: module.shortName,
-      responsible_teacher: %{
-        lastName: module.responsible_teacher.lastName,
-        firstName: module.responsible_teacher.firstName,
-        id: module.responsible_teacher.id
-      }}
+      responsible_teacher_id: module.responsible_teacher_id
+    }
   end
 end
