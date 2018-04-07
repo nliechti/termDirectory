@@ -39,7 +39,7 @@ defmodule TermDirectory.Modules.Module do
     Map.put(attrs, "module_workers", preload_module_worker([], module_worker_ids))
   end
 
-  @doc """
+  """
     Is used when an no module_worker attribute is given, 
     as put_assoc expects an emtpy list in this casse
   """
