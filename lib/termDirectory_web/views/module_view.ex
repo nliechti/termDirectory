@@ -1,6 +1,7 @@
 defmodule TermDirectoryWeb.ModuleView do
   use TermDirectoryWeb, :view
   alias TermDirectoryWeb.ModuleView
+  alias TermDirectoryWeb.TeacherView
 
   require Logger
 
@@ -13,9 +14,6 @@ defmodule TermDirectoryWeb.ModuleView do
   end
 
   def render("created.json", %{module: module}) do
-    module
-    |> inspect
-    |> Logger.info
     %{
       data: %{
         id: module.id,
@@ -27,17 +25,11 @@ defmodule TermDirectoryWeb.ModuleView do
   end
 
   def render("module.json", %{module: module}) do
-    module
-    |> inspect
-    |> Logger.info
     %{id: module.id,
       subject: module.subject,
       shortName: module.shortName,
-      responsible_teacher: %{
-        lastName: module.responsible_teacher.lastName,
-        firstName: module.responsible_teacher.firstName,
-        id: module.responsible_teacher.id
-      }
+      responsible_teacher: render_one(module.responsible_teacher, TeacherView, "teacher.json"),
+      module_workers: render_many(module.module_workers, TeacherView, "teacher.json")
     }
   end
 end
