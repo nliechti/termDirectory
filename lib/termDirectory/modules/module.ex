@@ -27,7 +27,7 @@ defmodule TermDirectory.Modules.Module do
     |> validate_required([:subject, :shortName])
     |> foreign_key_constraint(:responsible_teacher_id)
     |> cast_assoc(:responsible_teacher)
-    |> put_assoc(:module_workers, preloaded_attrs["module_workers"])
+    |> put_assoc(:module_workers, preloaded_attrs["module_workers"], required: false)
   end
 
   defp preload_attrs(attrs) do
@@ -38,15 +38,20 @@ defmodule TermDirectory.Modules.Module do
   defp preload_module_workers(%{"module_workers" => module_worker_ids} = attrs) do
     Map.put(attrs, "module_workers", preload_module_worker([], module_worker_ids))
   end
-  
-  defp preload_module_workers(attrs), do: attrs
+
+  @doc """
+    Is used when an no module_worker attribute is given, as put_assoc expects an emtpy list in this casse
+  """
+  defp preload_module_workers(attrs) do
+    Map.put(attrs, "module_workers", [])
+  end
 
   defp preload_module_worker(module_workers, [module_worker_id | module_workers_ids]) do
     module_workers
     |> List.insert_at(0, Repo.get(Teacher, module_worker_id))
     |> preload_module_worker(module_workers_ids)
   end
-
+  
   defp preload_module_worker(module_workers, []) do
     module_workers
   end
