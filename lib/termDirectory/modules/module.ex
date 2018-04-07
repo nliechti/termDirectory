@@ -8,7 +8,7 @@ defmodule TermDirectory.Modules.Module do
 
 
   schema "modules" do
-    many_to_many :module_workers, Teacher, join_through: TermDirectory.Modules.ModuleWorker
+    many_to_many :module_workers, Teacher, join_through: TermDirectory.Modules.ModuleWorker, on_replace: :delete
     field :shortName, :string
     field :subject, :string
     belongs_to :responsible_teacher, Teacher
@@ -40,7 +40,8 @@ defmodule TermDirectory.Modules.Module do
   end
 
   @doc """
-    Is used when an no module_worker attribute is given, as put_assoc expects an emtpy list in this casse
+    Is used when an no module_worker attribute is given, 
+    as put_assoc expects an emtpy list in this casse
   """
   defp preload_module_workers(attrs) do
     Map.put(attrs, "module_workers", [])
