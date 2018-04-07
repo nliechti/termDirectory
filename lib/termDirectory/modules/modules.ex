@@ -8,6 +8,7 @@ defmodule TermDirectory.Modules do
 
   alias TermDirectory.Modules.Module
   alias TermDirectory.Modules.ModulePreloader
+  alias TermDirectory.User.Teacher
 
   @doc """
   Returns the list of modules.
@@ -37,7 +38,10 @@ defmodule TermDirectory.Modules do
       ** (Ecto.NoResultsError)
 
   """
-  def get_module!(id), do: Repo.get!(Module, id)
+  def get_module!(id) do
+    Repo.get!(Module, id)
+    |> Repo.preload(:responsible_teacher)
+  end
 
   @doc """
   Creates a module.
@@ -53,7 +57,6 @@ defmodule TermDirectory.Modules do
   """
   def create_module(attrs \\ %{}) do
     %Module{}
-    #    |> TermDirectory.Modules.ModulePreloader.preload_module(attrs)
     |> Repo.preload(:responsible_teacher)
     |> Module.changeset(attrs)
     |> Repo.insert()

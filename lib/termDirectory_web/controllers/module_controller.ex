@@ -26,7 +26,7 @@ defmodule TermDirectoryWeb.ModuleController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", module_path(conn, :show, module))
-      |> render("show.json", module: module)
+      |> render("created.json", module: module)
     end
   end
 

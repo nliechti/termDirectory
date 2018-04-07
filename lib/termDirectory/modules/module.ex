@@ -6,7 +6,7 @@ defmodule TermDirectory.Modules.Module do
 
 
   schema "modules" do
-    many_to_many :module_workers, Teacher, join_through: "module_worker"
+#    many_to_many :module_workers, Teacher, join_through: "module_worker"
     field :shortName, :string
     field :subject, :string
     belongs_to :responsible_teacher, Teacher
@@ -21,6 +21,7 @@ defmodule TermDirectory.Modules.Module do
     |> cast(attrs, [:subject, :shortName, :responsible_teacher_id])
     |> validate_required([:subject, :shortName])
     |> foreign_key_constraint(:responsible_teacher_id)
+    |> cast_assoc(:responsible_teacher)
   end
 
   defp get_all_teachers([]) do
