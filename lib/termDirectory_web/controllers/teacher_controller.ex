@@ -11,7 +11,7 @@ defmodule TermDirectoryWeb.TeacherController do
     the given search string in the database
   """
   def index(conn, %{"search" => searchString}) do
-    teachers = Teacher.searchTeacher(searchString)
+    teachers = User.searchTeacher(searchString)
     conn
     |> render("index.json", teachers: teachers)
   end
