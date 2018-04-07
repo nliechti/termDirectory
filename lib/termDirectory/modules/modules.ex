@@ -22,6 +22,7 @@ defmodule TermDirectory.Modules do
   def list_modules do
     Repo.all(Module)
     |> Repo.preload(:responsible_teacher)
+    |> Repo.preload(:module_workers)
   end
 
   @doc """
@@ -40,6 +41,7 @@ defmodule TermDirectory.Modules do
   """
   def get_module!(id) do
     Repo.get!(Module, id)
+    |> Repo.preload(:module_workers)
     |> Repo.preload(:responsible_teacher)
   end
 
@@ -57,7 +59,6 @@ defmodule TermDirectory.Modules do
   """
   def create_module(attrs \\ %{}) do
     %Module{}
-    |> Repo.preload(:responsible_teacher)
     |> Module.changeset(attrs)
     |> Repo.insert()
   end
@@ -76,7 +77,6 @@ defmodule TermDirectory.Modules do
   """
   def update_module(%Module{} = module, attrs) do
     module
-    |> Repo.preload(:responsible_teacher)
     |> Module.changeset(attrs)
     |> Repo.update()
   end
