@@ -89,16 +89,12 @@ defmodule TermDirectory.User do
     Repo.delete(teacher)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking teacher changes.
+  def searchTeacher(searchString \\ "") do
+    fuzzySearchString = "%#{searchString}%"
+    query = from teacher in Teacher,
+                 where: ilike(teacher.firstName, ^fuzzySearchString),
+                 or_where: ilike(teacher.lastName, ^fuzzySearchString)
 
-  ## Examples
-
-      iex> change_teacher(teacher)
-      %Ecto.Changeset{source: %Teacher{}}
-
-  """
-  def change_teacher(%Teacher{} = teacher) do
-    Teacher.changeset(teacher, %{})
+    Repo.all(query)
   end
 end

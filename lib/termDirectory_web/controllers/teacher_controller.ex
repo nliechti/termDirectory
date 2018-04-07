@@ -6,6 +6,16 @@ defmodule TermDirectoryWeb.TeacherController do
 
   action_fallback TermDirectoryWeb.FallbackController
 
+  @doc """
+    This catches the search url param and performs a search for
+    the given search string in the database
+  """
+  def index(conn, %{"search" => searchString}) do
+    teachers = Teacher.searchTeacher(searchString)
+    conn
+    |> render("index.json", teachers: teachers)
+  end
+  
   def index(conn, _params) do
     teachers = User.list_teachers()
     render(conn, "index.json", teachers: teachers)
