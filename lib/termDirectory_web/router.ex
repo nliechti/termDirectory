@@ -23,5 +23,7 @@ defmodule TermDirectoryWeb.Router do
     pipe_through :api
     resources "/teachers", TeacherController
     resources "/modules", ModuleController
+    resources "/facts", FactController
+    resources "/factTypes", FactTypeController
   end
 end

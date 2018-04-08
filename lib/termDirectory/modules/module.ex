@@ -3,15 +3,17 @@ defmodule TermDirectory.Modules.Module do
   import Ecto.Changeset
   alias TermDirectory.Repo
   alias TermDirectory.User.Teacher
+  alias TermDirectory.Modules
   
   require Logger
 
 
   schema "modules" do
-    many_to_many :module_workers, Teacher, join_through: TermDirectory.Modules.ModuleWorker, on_replace: :delete
+    many_to_many :module_workers, Teacher, join_through: Modules.ModuleWorker, on_replace: :delete
     field :shortName, :string
     field :subject, :string
     belongs_to :responsible_teacher, Teacher
+    has_many :facts, Modules.Fact
 
     timestamps()
   end
@@ -39,10 +41,8 @@ defmodule TermDirectory.Modules.Module do
     Map.put(attrs, "module_workers", preload_module_worker([], module_worker_ids))
   end
 
-  "
-    Is used when an no module_worker attribute is given, 
-    as put_assoc expects an emtpy list in this casse
-  "
+  # Is used when an no module_worker attribute is given, 
+  # as put_assoc expects an emtpy list in this casse
   defp preload_module_workers(attrs) do
     Map.put(attrs, "module_workers", [])
   end
@@ -55,9 +55,5 @@ defmodule TermDirectory.Modules.Module do
   
   defp preload_module_worker(module_workers, []) do
     module_workers
-  end
-
-  defp loade_teacher(%{"responsible_teacher" => responsible_teacher_id} = attributes) do
-    %{attributes | "responsible_teacher" => Repo.get(Teacher, responsible_teacher_id)}
   end
 end

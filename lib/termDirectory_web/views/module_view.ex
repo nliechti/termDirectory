@@ -25,6 +25,7 @@ defmodule TermDirectoryWeb.ModuleView do
   end
 
   def render("module.json", %{module: module}) do
+    module |> inspect |> Logger.info
     %{id: module.id,
       subject: module.subject,
       shortName: module.shortName,
