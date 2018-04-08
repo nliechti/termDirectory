@@ -43,6 +43,7 @@ defmodule TermDirectory.Modules do
     Repo.get!(Module, id)
     |> Repo.preload(:module_workers)
     |> Repo.preload(:responsible_teacher)
+    |> Repo.preload(:facts)
   end
 
   @doc """

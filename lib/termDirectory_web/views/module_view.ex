@@ -2,18 +2,20 @@ defmodule TermDirectoryWeb.ModuleView do
   use TermDirectoryWeb, :view
   alias TermDirectoryWeb.ModuleView
   alias TermDirectoryWeb.TeacherView
+  alias TermDirectoryWeb.FactView
 
   require Logger
 
-  def render("index.json", %{modules: modules}) do
-    %{data: render_many(modules, ModuleView, "module.json")}
+  def render("all_modules_simple.json", %{modules: modules}) do
+    %{data: render_many(modules, ModuleView, "simple_module.json")}
   end
 
-  def render("show.json", %{module: module}) do
-    %{data: render_one(module, ModuleView, "module.json")}
+  def render("one_module_simple.json", %{module: module}) do
+    %{data: render_one(module, ModuleView, "simple_module.json")}
   end
 
-  def render("created.json", %{module: module}) do
+  def render("simple_module.json", %{module: module}) do
+    module |> inspect |> Logger.info
     %{
       data: %{
         id: module.id,
@@ -23,6 +25,10 @@ defmodule TermDirectoryWeb.ModuleView do
       }
     }
   end
+  
+  def render("one_extended_module.json",  %{module: module}) do
+    %{data: render_one(module, ModuleView, "module.json")}
+  end
 
   def render("module.json", %{module: module}) do
     module |> inspect |> Logger.info
@@ -30,7 +36,8 @@ defmodule TermDirectoryWeb.ModuleView do
       subject: module.subject,
       shortName: module.shortName,
       responsible_teacher: render_one(module.responsible_teacher, TeacherView, "teacher.json"),
-      module_workers: render_many(module.module_workers, TeacherView, "teacher.json")
+      module_workers: render_many(module.module_workers, TeacherView, "teacher.json"),
+      facts: render_many(module.facts, FactView, "fact.json")
     }
   end
 end

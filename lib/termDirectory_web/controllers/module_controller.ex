@@ -13,12 +13,12 @@ defmodule TermDirectoryWeb.ModuleController do
   def index(conn, %{"search" => searchString}) do
     modules = Modules.searchModule(searchString)
     conn
-    |> render("index.json", modules: modules)
+    |> render("all_modules_simple.json", modules: modules)
   end
   
   def index(conn, _params) do
     modules = Modules.list_modules()
-    render(conn, "index.json", modules: modules)
+    render(conn, "all_modules_simple.json", modules: modules)
   end
 
   def create(conn, module_params) do
@@ -26,20 +26,20 @@ defmodule TermDirectoryWeb.ModuleController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", module_path(conn, :show, module))
-      |> render("created.json", module: module)
+      |> render("one_simple_module.json", module: module)
     end
   end
 
   def show(conn, %{"id" => id}) do
     module = Modules.get_module!(id)
-    render(conn, "show.json", module: module)
+    render(conn, "one_extended_module.json", module: module)
   end
 
   def update(conn, module_params = %{"id" => id}) do
     module = Modules.get_module!(id)
 
     with {:ok, %Module{} = module} <- Modules.update_module(module, module_params) do
-      render(conn, "show.json", module: module)
+      render(conn, "one_simple_module.json", module: module)
     end
   end
 
