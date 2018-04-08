@@ -13,7 +13,7 @@ services:
 
     termdirectory:
         restart: always
-        image: termdirectory:latest
+        image: nliechti/termdirectory:latest
         container_name: "termdir_app"
         ports:
           - 4000:4000
