@@ -3,19 +3,35 @@ Niklas Liechti
 :toc:
 :toc-title: Inhaltsverzeichnis
 
-
 == Systemanalyse
 
 === Projektidee
 
 Das Ziel der Applikation ist es, das Backend für die Applikation Term Directory zu entwickeln. 
 Um eine Challenge darzustellen werde ich das Backend in Elixir zusammen mit dem Framework Phoenix umsetzen. 
-Da Elixir eine für mich komplett neue Sprache ist und zudem noch komplett funktional, werde ich nur das Backend mit API entwickeln, 
-damit der Aufwand nicht komplett aus dem Ruder läuft. Das Hauptziel hierbei ist es, mir die funktionale Denkweise anzueignen und zu vertiefen.
+Da Elixir eine für mich komplett neue Sprache ist und zudem noch komplett funktional, werde ich nur das Backend mit API entwickeln. 
+Das Hauptziel hierbei ist es, mir die funktionale Denkweise anzueignen und zu vertiefen.
 
 Um die Sprache richtig zu erlernen lese ich das Buch "Learn Function Programming with Elixir. New Foundations for a New World"
 
-== Pflichtenheft
+=== Pflichtenheft
+
+==== Muss Kriterien
+* Es müssen Lehrer erstellt werden können
+* Es müssen Module erstellt werden können
+* Es müssen Fakten erstellt werden können
+* Es müssen Fakt Typen erstellt werden können
+* Für das Modul gibt es einen Zuständigen Lehrer
+* Für das Modul gibt es n Lehrer, die an dem Modul arbeiten
+* Das Modul kann n Fakten haben
+* Ein Fakt hat einen Fakt Typ
+
+Diese Daten müssen persistiert werden. Das ganze passiert über das Web in form einer REST Api.
+
+
+==== Nice To have
+
+* Das Projekt kann per Docker deployt werden
 
 == Zeitplanung
 Mein hauptziel bei dieser Arbeit war es in funktionale Programmierung einzusteigen. Daher habe ich mich recht lange mit dem Buch: 
@@ -54,6 +70,13 @@ Die Struktur der Applikation ist von Phoenix her vorgegeben. Alles was irgendwie
 muss im Ordner "lib/termDirectory_web" liegen. Darunter existieren dann die für uns wichtigen Ordner controllers und views.
 Im Ordner "lib/termDirectory" ligen die Contexte, die wie oben erwähnt die Businesslogik beinhalten.
 
+Des weitern bietet Ecto die Möglichkeit migrationsscripts zu erstellen, um Schemaänderungen zu managen.
+Dies funktioniert sehr ähnlich wie andere Migrationsprogramme z.B. Flyway. Es werden dateien angelegt, die 
+Instruktionen für die Datenbank enthalten. Die Dateien enthalten im Namen einen Timestamp und werden nach diesem
+nacheinander ausgeführt. Dies ermöglicht eine Kontrollierte migration auf test und Livesystemen. 
+Sobald das erste Produktive System deployt ist, dürfen alte Dateien auf keinen fall mehr angepasst werden, 
+da es sonst zu inkonsistenten Daten kommen kann. Es muss dann immer ein neues File angelegt werden, welches die Änderungen enthält.
+
 <<<
 === Database
 Die Datenbank ist eine Postgres DB, die folgende Tabellen Enthält: teachers, modules, module_workers, facts, fact_types. 
@@ -61,35 +84,102 @@ Die Beziehungen sind im unten stehenden erd abgebildet
 
 image::erd.png[Datenbank Schema, 500, 400, align="center"]
 
+<<<
 === API
 
+Die gesammte API ist unter /api/v1 erreichbar.
 
+[cols="2,5a"]
 |===
 |Pfad |Aktion
 
-|Column 1, row 1
-|Column 2, row 1
+|/teachers
+| Folgende Aktionen sind erlaubt +
 
-|Column 1, row 2
-|Column 2, row 2
+* Get: Liefert alle Lehrer
+* Post: Erstellt einen neuen Lehrer
+....
+{
+  "firstName": "Niklas",
+  "lastName": "Liechti"
+}
+....
+* ?search=searchtString: Sucht in den Feldern firstName und lastName
 
-|Column 1, row 3
-|Column 2, row 3
+|/teachers/:id
+| Folgende Aktionen sind erlaubt +
+  
+  * Get: Gibt den angefragten Lehrer zurück
+  * Put: Updated einen bestehenden Lehrer. Argumente analog POST
+  * Delete: Löscht den Lehrer mit der ID
 
-|Column 1, row 4
-|Column 2, row 4
+|/factTypes
+| Folgende Aktionen sind erlaubt +
 
-|Column 1, row 5
-|Column 2, row 5
+* Get: Liefert alle Fakt Typen +
+* Post: Erstellt einen neuen Fakt Typen
+....
+{
+  "short_name": "example"
+}
+....
+* ?search=searchtString: Sucht im Feld shor_name
 
-|Column 1, row 6
-|Column 2, row 6
+|/factTypes/:id
+| Folgende Aktionen sind erlaubt +
+  
+  * Get: Gibt den angefragten Fakt Typ zurück
+  * Put: Updated einen bestehenden Fakt Typ. Argumente analog POST
+  * Delete: Löscht den Fakt Typ mit der ID
 
-|Column 1, row 7
-|Column 2, row 7
+|/facts
+| Folgende Aktionen sind erlaubt +
 
-|Column 1, row 8
-|Column 2, row 8
+* Get: Liefert alle Facts +
+* Post: Erstellt einen neuen Fact, die beiden ID's müssen bereits existieren
+....
+{
+  "value": "33",
+  "remark": "Test Remark",
+  "fact_type_id": 2,
+  "module_id": 1
+}
+....
+* ?search=searchtString: Sucht in den Feldern value und remark
+
+|/facts/:id
+| Folgende Aktionen sind erlaubt +
+  
+  * Get: Gibt den angefragten Fakt zurück
+  * Put: Updated einen bestehenden Fakt. Argumente analog POST
+  * Delete: Löscht den Fakt mit der ID
+
+|/modules
+| Folgende Aktionen sind erlaubt +
+
+* Get: Liefert alle Module +
+* Post: Erstellt einen neues Modul, responsible_teacher muss existieren und ist required. Module_workers müssen auch existieren
+müssen aber nicht zwingend gesetzt werden
+....
+{
+  "responsible_teacher_id": 1,
+  "shortName": "Short module",
+  "subject": "test subject",
+  "module_workers": [
+    1,
+	2,
+	...
+  ]
+}
+....
+* ?search=searchtString: Sucht in den Feldern shortName und subject
+
+|/modules/:id
+| Folgende Aktionen sind erlaubt +
+  
+  * Get: Gibt das angefragte Modul zurück
+  * Put: Updated einen bestehendes Modul. Argumente analog POST
+  * Delete: Löscht das Modul mit der ID
 |===
 
 
@@ -127,7 +217,6 @@ diese aufgaben meist nicht selbst erledigen musste.
 Während der Arbeit mit an der API habe ich sehr viel über das desingen von REST Api's gelernt. Das wichtigste, dass ich gelernt habe, ist wohl, dass es keine genaue Spezifikation für eine Rest Api gibt.
 Das meiste ist interpratationssache und die Meinungen von Entwicklern gehen weit auseinander wie eine Api designt sein sollte.
 Ich habe mich dafür entschieden nicht Objekte mitsamt allen Referenzen entgegen zu nehmen, sondern nur die Referenz ID auf das Objekt.
-Meiner Meinung nach ist das die cleanere Variante, als 
 
 === Phoenix
 
