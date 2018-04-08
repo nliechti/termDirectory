@@ -10,19 +10,17 @@ defmodule TermDirectoryWeb.ModuleView do
     %{data: render_many(modules, ModuleView, "simple_module.json")}
   end
 
-  def render("one_module_simple.json", %{module: module}) do
+  def render("one_simple_module.json", %{module: module}) do
     %{data: render_one(module, ModuleView, "simple_module.json")}
   end
 
   def render("simple_module.json", %{module: module}) do
     module |> inspect |> Logger.info
     %{
-      data: %{
-        id: module.id,
-        subject: module.subject,
-        shortName: module.shortName,
-        responsible_teacher_id: module.responsible_teacher_id
-      }
+      id: module.id,
+      subject: module.subject,
+      shortName: module.shortName,
+      responsible_teacher_id: module.responsible_teacher_id
     }
   end
   
