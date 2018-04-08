@@ -99,19 +99,6 @@ defmodule TermDirectory.Modules do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking module changes.
-
-  ## Examples
-
-      iex> change_module(module)
-      %Ecto.Changeset{source: %Module{}}
-
-  """
-  def change_module(%Module{} = module) do
-    Module.changeset(module, %{})
-  end
-
-  @doc """
   Searches for a module containing the searchString
   
   ## Examples
@@ -212,19 +199,6 @@ defmodule TermDirectory.Modules do
     Repo.delete(fact)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking fact changes.
-
-  ## Examples
-
-      iex> change_fact(fact)
-      %Ecto.Changeset{source: %Fact{}}
-
-  """
-  def change_fact(%Fact{} = fact) do
-    Fact.changeset(fact, %{})
-  end
-
   def search_fact(searchString \\ "") do
     fuzzySearchString = "%#{searchString}%"
     query = from fact in Fact,
@@ -315,19 +289,6 @@ defmodule TermDirectory.Modules do
   """
   def delete_fact_type(%FactType{} = fact_type) do
     Repo.delete(fact_type)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking fact_type changes.
-
-  ## Examples
-
-      iex> change_fact_type(fact_type)
-      %Ecto.Changeset{source: %FactType{}}
-
-  """
-  def change_fact_type(%FactType{} = fact_type) do
-    FactType.changeset(fact_type, %{})
   end
 
   def search_fact_type(searchString \\ "") do
