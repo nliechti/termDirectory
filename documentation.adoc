@@ -26,11 +26,20 @@ Um die Sprache richtig zu erlernen, lese ich das Buch "Learn Function Programmin
 * Das Modul kann mehrere Fakten haben
 * Ein Fakt hat einen Fakt Typ
 
-Diese Daten müssen persistiert werden. Das Ganze passiert über das Web in Form einer REST Api.
+Diese Daten müssen persistiert werden. Das Ganze passiert über das Web in Form einer REST Api. Über diese API müssen dann die Daten auch wieder korrekt 
+abgefragt werden können.
 
-==== Nice To have
+==== Nice to have
 
 * Das Projekt kann per Docker deployed werden
+
+==== Funktionstest
+
+Alle muss Kriterien sind erfüllt. Es können alle Operationen die im Bereich <<API>> definiert sind durchgeführt werden und die Daten werden korrekt verarbeitet und gespeichert.
+Auch die Nice to have Punkte konnten umgesetzt werden. Die app kann komplett autonom per Docker installierte werden.
+
+Den einzige Schönheitsfehler, den ich nicht beheben konnte ist eine schöne fehlermeldung beim Löschen von referenzierten Einträgen. Momentan wird ein http/500 zurückgegeben,
+der für den User der API keinen Rückschluss auf das wirkliche Problem erlaubt. Es passieren aber keine unerwarteten Aktionen auf den Daten
 
 == Zeitplanung
 Mein Hauptziel bei dieser Arbeit war es in funktionale Programmierung einzusteigen. Daher habe ich mich recht lange mit dem Buch: 
@@ -39,7 +48,7 @@ Danach wollte ich mit der Aufgabe meine Elixir Kenntnisse durch die Anwendung ve
 mit der Datenbankanbindung, also Ecto verloren habe.
 Daher wurde die Woche vor der Abgabe doch noch stressiger als gedacht und ich musste den Umfang leicht einschränken, indem ich nur Module, Lehrer und Fakten 
 implementiert habe.
-In dem Programm selbst stecken ca. 5 volle Arbeitstage.
+In dem Programm selbst stecken ca. 6 volle Arbeitstage.
 
 == Entwicklung
 
