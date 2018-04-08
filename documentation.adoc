@@ -47,7 +47,15 @@ In dem Programm selbst stecken ca. 5 volle Arbeitstage.
 Ich habe das Ganze auf MacOS entwickelt. Elixir und das darunterliegende Erlang gibt es aber für alle erdenklichen Betriebssysteme
 
 === IDE
-Als IDE habe ich IntelliJ von Jetbrains genutzt, da ich diese auch für alle andere Entwicklung im Geschäft oder privat benutze. 
+Als IDE habe ich IntelliJ von Jetbrains genutzt, da ich diese auch für alle andere Entwicklung im Geschäft oder privat benutze.
+
+=== Datenbank
+Die postgres DB kann entweder direk installiert werden, oder per Docker oder Docker-compose hochgefahren werden. In meinem fall habe ich einfach
+``docker-compose up -d postgres`` im Ordner deployment gemacht. Dadurch wird einfach nur der Service postgres, also nur die DB hochgefahren.
+
+=== Dokumentation
+Zur Dokumentation des Ganze habe ich das asciidoc Format verwenden, da es etwas flexibler als Markdown ist. Um die Datei documentation.adoc in ein PDF umzuwandeln,
+wird ein externes Program benötigt. Ich habe dazu https://asciidoctor.org/[Asciidoctor] verwendet.
 
 <<<
 == Dokumentation
@@ -182,8 +190,9 @@ müssen aber nicht zwingend gesetzt werden
 
 Das Deployment der Applikation geschieht mit Docker und Docker-Compose.
 Um das Program starten zu können, muss sowohl https://docs.docker.com/install/[Docker] als auch https://docs.docker.com/compose/install/[Docker-Compose] installiert werden.
-Um das Program und die Datenbank zu starten, kann einfach ein Befehl im Ordner deployments ausgeführt werden.
-``docker-compose up -d``
+Um das Program und die Datenbank zu starten, kann einfach ``docker-compose up -d`` im Ordner deployments ausgeführt werden.
+
+Um eine neu Version zu veröffentlichen kann einfach ``docker build -t nliechti/termdirectory . ; docker push nliechti/termdirectory`` im root Dir des Projektes ausgeführt werden. Beim nächsten compose up sollte dann die neue Version geladen werden.
 
 == Reflexion
 
