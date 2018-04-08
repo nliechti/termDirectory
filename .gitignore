@@ -31,3 +31,5 @@ deployment/data
 
 # Exclude intellij Data
 .idea
+/assets/package-lock.json
+/assets/_build
