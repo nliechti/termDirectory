@@ -52,10 +52,6 @@ Als IDE habe IntelliJ von Jetbrains genutzt, da ich diese auch für alle andere 
 
 == Dokumentation
 
-Die Dokumentation zu den Funktionen, kann direkt im code geschriben werden, da Elixir eine funktion zur Generierung von Dokumentation anbietet.
-Weiter kann dort sogar mittels des Features Doctest gleich auch noch example code als Test ausgeführt werden.
-Dies garantiert dann auch gleich die Korrektheit des code examples und erhöht die Test coverage.
-
 <<<
 === Programmstruktur
 
@@ -89,7 +85,7 @@ image::erd.png[Datenbank Schema, 500, 400, align="center"]
 
 Die gesammte API ist unter /api/v1 erreichbar.
 
-[cols="2,5a"]
+[cols="1,5a"]
 |===
 |Pfad |Aktion
 
@@ -239,5 +235,12 @@ war es doch ein bisschen zu viel auf einmal. Ich denke eine komplett neue Sprach
 Um Elixir richtig zu Lernen und in diesem Umfang richtig einzusetzten, braucht es meiner Meinung nach ca. 2 Monate Vollzeit Einarbeitung.
 
 Die grössten Probleme hat mir aber Ecto bereitet, da es eine sehr eigene Art hat mit Daten umzugehen, war widerum am rein funktionalen Elixir liegt.
+
+== Schlusswort
+Im grossen und ganzen hat das Projekt wegen Ecto und der DB Anbindung zwar massiv mehr Zeit in anspruch genommen als gedacht, aber die Arbeit mit Elixir
+hat mir grundsätzlich spass gemacht. Viele Features der Sprache und von Phoenix konnte ich leider gar nicht verwenden, da der Scope dadurch noch viel grösser geworden wäre.
+Grundsätzlich bin ich aber immer noch ein fan von Stark typisierten sprachen, da es einfach vieles einfacher zu benutzen macht, da schon beim schreiben 
+des Codes klar ist was erlaubt ist und was nicht. Elixir hat auch eine art typisierung, diese ist griff in meinem Fall aber immer erst beim Compilen, was daran liegt,
+dass das Tooling noch lange nicht so gut ist wie z.B. bei Java.
 
 
