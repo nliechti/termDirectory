@@ -1,18 +1,97 @@
 = Termdirectory
+Niklas Liechti
+:toc:
+:toc-title: Inhaltsverzeichnis
+
 
 == Systemanalyse
 
-Die Applikation soll für die interne Koordination des 
+=== Projektidee
 
-== Programmentwurf
+Das Ziel der Applikation ist es, das Backend für die Applikation Term Directory zu entwickeln. 
+Um eine Challenge darzustellen werde ich das Backend in Elixir zusammen mit dem Framework Phoenix umsetzen. 
+Da Elixir eine für mich komplett neue Sprache ist und zudem noch komplett funktional, werde ich nur das Backend mit API entwickeln, 
+damit der Aufwand nicht komplett aus dem Ruder läuft. Das Hauptziel hierbei ist es, mir die funktionale Denkweise anzueignen und zu vertiefen.
 
-== Implementation
+Um die Sprache richtig zu erlernen lese ich das Buch "Learn Function Programming with Elixir. New Foundations for a New World"
+
+== Pflichtenheft
+
+== Zeitplanung
+Mein hauptziel bei dieser Arbeit war es in funktionale Programmierung einzusteigen. Daher habe ich mich recht lange mit dem Buch: 
+"Learn Functional Programming with Elixir" beschäftigt, in dem ich es gelesen habe und die Übungen darin gemacht habe. 
+Danach wollte ich mit der Aufgabe meine Elixir kenntnisse durch die Anwendung vertiefen, was nicht ganz geklappt hat, da ich die meiste Zeit 
+mit der Datenbank anbindung, also Ecto verloren habe.
+Daher wurde die Woche vor der Abgabe doch noch stressiger als gedacht und ich musste den Umfang leicht einschränken, indem ich nur Module, Lehrer und Fakten 
+implementiert habe.
+In dem Programm selbst stecken ca. 5 volle Arbeitstage.
+
+== Entwicklung
+
+=== OS
+Ich habe das ganze auf MacOS entwickelt. Elixir und das darunterliegende Erlang gibt es aber für alle erdenklichen Betriebssysteme
+
+=== IDE
+Als IDE habe IntelliJ von Jetbrains genutzt, da ich diese auch für alle andere Entwicklung im Geschäft oder Privat benutze. 
 
 == Dokumentation
 
 Die Dokumentation zu den Funktionen, kann direkt im code geschriben werden, da Elixir eine funktion zur Generierung von Dokumentation anbietet.
 Weiter kann dort sogar mittels des Features Doctest gleich auch noch example code als Test ausgeführt werden.
 Dies garantiert dann auch gleich die Korrektheit des code examples und erhöht die Test coverage.
+
+<<<
+=== Programmstruktur
+
+Das Program ist folgendermassen aufgebaut. Alle Interaktionen gehen von einem Client aus, in unserem Fall einfach ein REST client.
+Grundsätzlich wird dann alles durch den Router an die Controller weitergeleitet, die dann entscheiden, was genau bei einer Aktion passieren soll. 
+Im Context passiert dann die eigentlich Business Logik, sprich Datentransformation, DB abfragen und so weiter. Diese geben dann die Aufbereiteten Daten
+dann an eine View weiter, die entscheidet, wie etwas gerendert wird. In unserem Fall rendern die Views nur json files fur die API.
+
+image::program_structure.png[Programm Struktur, 700 align="center"]
+
+Die Struktur der Applikation ist von Phoenix her vorgegeben. Alles was irgendwie etwas mit mit dem Web oder einer Schnittstelle zu tun hat, 
+muss im Ordner "lib/termDirectory_web" liegen. Darunter existieren dann die für uns wichtigen Ordner controllers und views.
+Im Ordner "lib/termDirectory" ligen die Contexte, die wie oben erwähnt die Businesslogik beinhalten.
+
+<<<
+=== Database
+Die Datenbank ist eine Postgres DB, die folgende Tabellen Enthält: teachers, modules, module_workers, facts, fact_types. 
+Die Beziehungen sind im unten stehenden erd abgebildet
+
+image::erd.png[Datenbank Schema, 500, 400, align="center"]
+
+=== API
+
+
+|===
+|Pfad |Aktion
+
+|Column 1, row 1
+|Column 2, row 1
+
+|Column 1, row 2
+|Column 2, row 2
+
+|Column 1, row 3
+|Column 2, row 3
+
+|Column 1, row 4
+|Column 2, row 4
+
+|Column 1, row 5
+|Column 2, row 5
+
+|Column 1, row 6
+|Column 2, row 6
+
+|Column 1, row 7
+|Column 2, row 7
+
+|Column 1, row 8
+|Column 2, row 8
+|===
+
 
 === Deployment
 
@@ -34,14 +113,25 @@ Die grösste Challange bei diesem Projekt, war das komplette umdenken von Objekt
 Objektorientiert gearbeitet. Daher fiel mir der umstieg und vor allem das Umdenken recht schwierig. Der Tatsache und der Grund, warum alles Immutable ist, hat sich mir recht schnell erschlossen.
 Ich bin aber trotzdem immer wieder, vor allem bei den kleinen Übungen im Buch in die Falsche richtung gelaufen und musste mir immer wieder überlegen wie ich das jetzt funktional lösen könnte.
 
+=== Ecto
+
+Ecto ist der DB Abstraktionslayer, aber wie sie selbst auch sagen kein ORM (Object Relation Mapper), da dies in einer rein Funktionalen Sprache gar nicht möglich ist.
+Auch ist ecto so leicht wie möglich gehalten, bedeutet also, es müssen viele Schritte selbst gemacht werden.
+Dies bedeutet initial grösseren aufwand, hilft aber über längere Zeit bei der bei der Entwicklung, da kein oder nur sehr wenig Woodoo hintern den Kulissen passiert.
+
+Da ich bisher eigentlich nur mit ORM gearbeitet habe, die einem möglichst viel Arbeit abnehmen, hat mich das sehr viel Zeit gekostet, da ich bisher 
+diese aufgaben meist nicht selbst erledigen musste.
+
 === API Design
 
 Während der Arbeit mit an der API habe ich sehr viel über das desingen von REST Api's gelernt. Das wichtigste, dass ich gelernt habe, ist wohl, dass es keine genaue Spezifikation für eine Rest Api gibt.
 Das meiste ist interpratationssache und die Meinungen von Entwicklern gehen weit auseinander wie eine Api designt sein sollte.
+Ich habe mich dafür entschieden nicht Objekte mitsamt allen Referenzen entgegen zu nehmen, sondern nur die Referenz ID auf das Objekt.
+Meiner Meinung nach ist das die cleanere Variante, als 
 
 === Phoenix
 
-Phoenix ist ein Framework, dass in Elixir geschrieben ist. Ist eigentlich ein full Stack Framework, dass auf funktionen vieler Komponenten aufbaut.
+Phoenix ist ein Framework, dass in Elixir geschrieben ist. Es ist eigentlich ein full Stack Framework, dass auf funktionen vieler Komponenten aufbaut.
 Den Frontend Teil des Frameworkes nahmens Plug, habe bis auf den Router nicht wirklich verwendet. Für die Datenbank anbindung wird Ecto verwendet.
 Ecto ist ein unabhängiger DB Abstraktionslayer, der mir am meisten Mühe bereitete.
 Für die Buisinesslogik wird einfach Elixir in einer bestimmt vorgegebenen Struktur verwendet.
@@ -55,6 +145,10 @@ Im Juli 2017 erschien die Version 1.3 des Frameworkes, das viele grundlegende Me
 da viel Dokumentation von dritten und Beispiele im Internet immer noch auf den alten Strukturen beruhen.
 
 === Probleme
-Was mir am meisten Probleme bereitet hatte, was die 
+Im grossen und ganzen hat das Lernen eines komplett anderen Paradigmas spass gemacht. Ich denke aber, obwohl die Aufgabenstellung einfach klang, 
+war es doch ein bisschen zu viel auf einmal. Ich denke eine komplett neue Sprache und 2 sehr umfangreiche Frameworks auf einmal zu Lernen, ist zu viel.
+Um Elixir richtig zu Lernen und in diesem Umfang richtig einzusetzten, braucht es meiner Meinung nach ca. 2 Monate Vollzeit Einarbeitung.
+
+Die grössten Probleme hat mir aber Ecto bereitet, da es eine sehr eigene Art hat mit Daten umzugehen, war widerum am rein funktionalen Elixir liegt.
 
 
