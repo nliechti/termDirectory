@@ -60,6 +60,15 @@ config :logger, level: :info
 #     config :termDirectory, TermDirectoryWeb.Endpoint, server: true
 #
 
+# Configure your database
+config :termDirectory, TermDirectory.Repo,
+       adapter: Ecto.Adapters.Postgres,
+       username: "postgres",
+       password: System.get_env("POSTGRESQL_PASSWORD"),
+       database: "termdirectory_prod",
+       hostname: "postgres",
+       pool_size: 15
+
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
