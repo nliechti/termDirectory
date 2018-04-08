@@ -26,7 +26,7 @@ defmodule TermDirectory.Modules.Module do
     |> Repo.preload(:responsible_teacher)
     |> Repo.preload(:module_workers)
     |> cast(preloaded_attrs, [:subject, :shortName, :responsible_teacher_id])
-    |> validate_required([:subject, :shortName])
+    |> validate_required([:subject, :shortName, :responsible_teacher_id])
     |> foreign_key_constraint(:responsible_teacher_id)
     |> cast_assoc(:responsible_teacher)
     |> put_assoc(:module_workers, preloaded_attrs["module_workers"], required: false)
