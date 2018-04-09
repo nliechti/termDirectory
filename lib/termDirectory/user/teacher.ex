@@ -1,4 +1,7 @@
 defmodule TermDirectory.User.Teacher do
+  @moduledoc """
+  Schema and funtions to the teacher "object"
+  """
   use Ecto.Schema
   import Ecto.Changeset
   alias TermDirectory.Modules.Module

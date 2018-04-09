@@ -5,6 +5,7 @@ defmodule TermDirectory.Modules.ModuleWorker do
   use Ecto.Schema
   alias TermDirectory
 
+  # Generate no primary key as it is an cross table only
   @primary_key false
   schema "module_workers" do
     belongs_to :teacher, User.Teacher

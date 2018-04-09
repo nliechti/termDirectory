@@ -1,4 +1,8 @@
 defmodule TermDirectory.Modules.Module do
+  @moduledoc """
+  Schema and funtions to the module "object"
+  """
+  
   use Ecto.Schema
   import Ecto.Changeset
   alias TermDirectory.Repo
@@ -32,11 +36,13 @@ defmodule TermDirectory.Modules.Module do
     |> put_assoc(:module_workers, preloaded_attrs["module_workers"], required: false)
   end
 
+  # Preload needed attributes to the module that should be loaded
   defp preload_attrs(attrs) do
     attrs
     |> preload_module_workers
   end
   
+  # Preload the module workers that belong to the given module
   defp preload_module_workers(%{"module_workers" => module_worker_ids} = attrs) do
     Map.put(attrs, "module_workers", preload_module_worker([], module_worker_ids))
   end

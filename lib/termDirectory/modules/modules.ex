@@ -1,6 +1,6 @@
 defmodule TermDirectory.Modules do
   @moduledoc """
-  The Modules context.
+  The Modules context. Contains all business logic for the modules Context
   """
 
   import Ecto.Query, warn: false

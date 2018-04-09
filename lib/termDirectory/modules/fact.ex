@@ -1,4 +1,7 @@
 defmodule TermDirectory.Modules.Fact do
+  @moduledoc """
+  Schema and funtions to the fact "object"
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

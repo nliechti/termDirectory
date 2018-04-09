@@ -1,6 +1,6 @@
 defmodule TermDirectory.User do
   @moduledoc """
-  The User context.
+  The User context. Contains all business logic for the Users Context
   """
 
   import Ecto.Query, warn: false
